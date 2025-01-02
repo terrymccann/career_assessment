@@ -1,0 +1,431 @@
+{
+    "metadata": {
+        "timestamp": "2025-01-02T14:26:40.884Z",
+        "completionRate": "100%"
+    },
+    "responses": {
+        "Work Style & Environment": {
+            "1": {
+                "question": "I prefer working independently rather than as part of a team.",
+                "response": 4
+            },
+            "2": {
+                "question": "I enjoy solving complex problems that require careful analysis.",
+                "response": 4
+            },
+            "3": {
+                "question": "I thrive in fast-paced environments with frequent deadlines.",
+                "response": 5
+            },
+            "4": {
+                "question": "I'm comfortable with routine and predictable work tasks.",
+                "response": 4
+            },
+            "5": {
+                "question": "I prefer roles where I can be creative and innovative.",
+                "response": 4
+            },
+            "6": {
+                "question": "I work best in a quiet, focused environment.",
+                "response": 4
+            },
+            "7": {
+                "question": "I enjoy multitasking and handling various projects simultaneously.",
+                "response": 4
+            },
+            "8": {
+                "question": "I prefer structured work environments with clear rules and procedures.",
+                "response": 5
+            },
+            "9": {
+                "question": "I'm comfortable with ambiguity and uncertainty in my work.",
+                "response": 4
+            },
+            "10": {
+                "question": "I enjoy working outdoors or in different locations.",
+                "response": 5
+            },
+            "11": {
+                "question": "I prefer having a regular, fixed schedule.",
+                "response": 4
+            },
+            "12": {
+                "question": "I can maintain focus on detailed tasks for long periods.",
+                "response": 5
+            },
+            "13": {
+                "question": "I adapt quickly to new work situations and changes.",
+                "response": 4
+            },
+            "14": {
+                "question": "I enjoy competitive work environments.",
+                "response": 5
+            },
+            "15": {
+                "question": "I prefer collaborative decision-making processes.",
+                "response": 5
+            }
+        },
+        "Skills & Abilities": {
+            "16": {
+                "question": "I excel at explaining complex ideas to others in simple terms.",
+                "response": 5
+            },
+            "17": {
+                "question": "I notice small details that others might overlook.",
+                "response": 4
+            },
+            "18": {
+                "question": "I'm good at persuading others and negotiating.",
+                "response": 5
+            },
+            "19": {
+                "question": "I enjoy learning new technologies and technical skills.",
+                "response": 4
+            },
+            "20": {
+                "question": "I'm skilled at organizing people and managing projects.",
+                "response": 5
+            },
+            "21": {
+                "question": "I can quickly identify patterns and connections in information.",
+                "response": 4
+            },
+            "22": {
+                "question": "I'm good at mathematical and numerical analysis.",
+                "response": 3
+            },
+            "23": {
+                "question": "I have strong written communication skills.",
+                "response": 4
+            },
+            "24": {
+                "question": "I'm skilled at resolving conflicts between people.",
+                "response": 5
+            },
+            "25": {
+                "question": "I excel at visual thinking and spatial reasoning.",
+                "response": 4
+            },
+            "26": {
+                "question": "I'm good at developing and implementing systems.",
+                "response": 4
+            },
+            "27": {
+                "question": "I can effectively manage multiple priorities.",
+                "response": 4
+            },
+            "28": {
+                "question": "I have strong public speaking abilities.",
+                "response": 4
+            },
+            "29": {
+                "question": "I'm skilled at gathering and analyzing data.",
+                "response": 4
+            },
+            "30": {
+                "question": "I excel at creative problem-solving.",
+                "response": 4
+            }
+        },
+        "Values & Motivations": {
+            "31": {
+                "question": "Making a positive impact on society is more important than earning a high salary.",
+                "response": 4
+            },
+            "32": {
+                "question": "I value job security more than the potential for rapid career advancement.",
+                "response": 4
+            },
+            "33": {
+                "question": "Having a flexible work schedule is essential for my well-being.",
+                "response": 5
+            },
+            "34": {
+                "question": "I'm willing to take career risks for potentially higher rewards.",
+                "response": 4
+            },
+            "35": {
+                "question": "Recognition and status in my career are important to me.",
+                "response": 5
+            },
+            "36": {
+                "question": "Work-life balance is a top priority for me.",
+                "response": 4
+            },
+            "37": {
+                "question": "I'm motivated by opportunities for continuous learning.",
+                "response": 4
+            },
+            "38": {
+                "question": "Financial stability is more important than job satisfaction.",
+                "response": 4
+            },
+            "39": {
+                "question": "I value autonomy and independence in my work.",
+                "response": 4
+            },
+            "40": {
+                "question": "I'm motivated by helping others succeed.",
+                "response": 4
+            },
+            "41": {
+                "question": "I prefer working for established organizations over startups.",
+                "response": 4
+            },
+            "42": {
+                "question": "Career advancement opportunities are crucial to me.",
+                "response": 4
+            },
+            "43": {
+                "question": "I value diversity and inclusion in the workplace.",
+                "response": 4
+            },
+            "44": {
+                "question": "I'm motivated by solving challenging problems.",
+                "response": 4
+            },
+            "45": {
+                "question": "Environmental sustainability is important in my career choices.",
+                "response": 4
+            }
+        },
+        "Interpersonal Dynamics": {
+            "46": {
+                "question": "I enjoy meeting and interacting with new people regularly.",
+                "response": 5
+            },
+            "47": {
+                "question": "I prefer written communication over verbal communication.",
+                "response": 5
+            },
+            "48": {
+                "question": "I'm comfortable taking on leadership roles.",
+                "response": 5
+            },
+            "49": {
+                "question": "I enjoy teaching or mentoring others.",
+                "response": 5
+            },
+            "50": {
+                "question": "I work well under direct supervision and clear guidelines.",
+                "response": 5
+            },
+            "51": {
+                "question": "I'm good at building and maintaining professional relationships.",
+                "response": 5
+            },
+            "52": {
+                "question": "I prefer working alone on complex tasks.",
+                "response": 4
+            },
+            "53": {
+                "question": "I'm comfortable giving presentations to large groups.",
+                "response": 4
+            },
+            "54": {
+                "question": "I enjoy networking and building professional connections.",
+                "response": 4
+            },
+            "55": {
+                "question": "I work well in team-based environments.",
+                "response": 4
+            },
+            "56": {
+                "question": "I'm skilled at managing difficult personalities.",
+                "response": 3
+            },
+            "57": {
+                "question": "I prefer direct communication styles.",
+                "response": 2
+            },
+            "58": {
+                "question": "I'm good at reading people's emotions and motivations.",
+                "response": 3
+            },
+            "59": {
+                "question": "I enjoy roles that involve customer interaction.",
+                "response": 4
+            },
+            "60": {
+                "question": "I'm comfortable with constructive criticism.",
+                "response": 4
+            }
+        },
+        "Technical & Analytical Skills": {
+            "61": {
+                "question": "I enjoy working with data and analyzing information.",
+                "response": 4
+            },
+            "62": {
+                "question": "I'm interested in understanding human behavior and psychology.",
+                "response": 4
+            },
+            "63": {
+                "question": "I like working with my hands and creating tangible things.",
+                "response": 4
+            },
+            "64": {
+                "question": "I'm drawn to artistic and creative pursuits.",
+                "response": 4
+            },
+            "65": {
+                "question": "I enjoy solving technical or mechanical problems.",
+                "response": 4
+            },
+            "66": {
+                "question": "I'm comfortable learning new software and technologies.",
+                "response": 4
+            },
+            "67": {
+                "question": "I enjoy coding or programming.",
+                "response": 4
+            },
+            "68": {
+                "question": "I'm good at troubleshooting technical issues.",
+                "response": 4
+            },
+            "69": {
+                "question": "I enjoy statistical analysis and interpretation.",
+                "response": 4
+            },
+            "70": {
+                "question": "I'm skilled at design and visual composition.",
+                "response": 4
+            },
+            "71": {
+                "question": "I enjoy research and investigation.",
+                "response": 4
+            },
+            "72": {
+                "question": "I'm good at process improvement and optimization.",
+                "response": 4
+            },
+            "73": {
+                "question": "I enjoy working with scientific concepts.",
+                "response": 4
+            },
+            "74": {
+                "question": "I'm skilled at financial analysis and planning.",
+                "response": 4
+            },
+            "75": {
+                "question": "I enjoy working with complex systems.",
+                "response": 4
+            }
+        },
+        "Industry & Field Preferences": {
+            "76": {
+                "question": "I'm interested in healthcare and medical fields.",
+                "response": 4
+            },
+            "77": {
+                "question": "I enjoy working in educational settings.",
+                "response": 4
+            },
+            "78": {
+                "question": "I'm drawn to business and entrepreneurship.",
+                "response": 4
+            },
+            "79": {
+                "question": "I'm interested in environmental and sustainability work.",
+                "response": 4
+            },
+            "80": {
+                "question": "I enjoy working in creative industries.",
+                "response": 4
+            },
+            "81": {
+                "question": "I'm interested in law and legal processes.",
+                "response": 4
+            },
+            "82": {
+                "question": "I enjoy working with technology and software.",
+                "response": 4
+            },
+            "83": {
+                "question": "I'm drawn to social services and community work.",
+                "response": 4
+            },
+            "84": {
+                "question": "I enjoy working in financial services.",
+                "response": 4
+            },
+            "85": {
+                "question": "I'm interested in scientific research.",
+                "response": 4
+            },
+            "86": {
+                "question": "I enjoy working in marketing and advertising.",
+                "response": 4
+            },
+            "87": {
+                "question": "I'm drawn to construction and building industries.",
+                "response": 4
+            },
+            "88": {
+                "question": "I enjoy working in hospitality and service industries.",
+                "response": 4
+            },
+            "89": {
+                "question": "I'm interested in government and public service.",
+                "response": 4
+            },
+            "90": {
+                "question": "I enjoy working in media and entertainment.",
+                "response": 4
+            }
+        },
+        "Learning & Growth": {
+            "91": {
+                "question": "I enjoy reading and researching new topics.",
+                "response": 4
+            },
+            "92": {
+                "question": "I learn best through hands-on experience.",
+                "response": 4
+            },
+            "93": {
+                "question": "I seek out opportunities for professional development.",
+                "response": 4
+            },
+            "94": {
+                "question": "I'm comfortable with rapid technological change.",
+                "response": 4
+            },
+            "95": {
+                "question": "I enjoy mentoring and teaching others.",
+                "response": 4
+            },
+            "96": {
+                "question": "I adapt quickly to new methods and procedures.",
+                "response": 4
+            },
+            "97": {
+                "question": "I'm interested in pursuing additional education or certifications.",
+                "response": 4
+            },
+            "98": {
+                "question": "I learn well from constructive feedback.",
+                "response": 4
+            },
+            "99": {
+                "question": "I enjoy challenging myself with new skills.",
+                "response": 4
+            },
+            "100": {
+                "question": "I'm committed to continuous self-improvement.",
+                "response": 4
+            }
+        }
+    },
+    "categoryAverages": {
+        "Work Style & Environment": "4.40",
+        "Skills & Abilities": "4.20",
+        "Values & Motivations": "4.13",
+        "Interpersonal Dynamics": "4.13",
+        "Technical & Analytical Skills": "4.00",
+        "Industry & Field Preferences": "4.00",
+        "Learning & Growth": "4.00"
+    }
+}
