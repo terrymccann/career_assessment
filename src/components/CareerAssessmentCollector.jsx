@@ -152,7 +152,7 @@ const CareerAssessmentCollector = () => {
             100: "I'm committed to continuous self-improvement."
         }
     }
-];
+  ];
 
   const handleResponse = (questionNumber, value) => {
     setResponses(prev => ({
@@ -173,7 +173,7 @@ const CareerAssessmentCollector = () => {
 
     // Check if responses is already categorized (test data format)
     const isTestData = typeof Object.values(responses)[0] === 'object' && 
-                      !('response' in Object.values(responses)[0]);
+                      Object.values(responses)[0].hasOwnProperty('1');
 
     if (isTestData) {
         // Handle test data format (already categorized)
@@ -182,12 +182,14 @@ const CareerAssessmentCollector = () => {
         // Calculate averages for test data
         Object.entries(responses).forEach(([category, questionResponses]) => {
             const validResponses = Object.values(questionResponses)
-                .filter(item => item.response !== undefined && item.response !== null);
+                .filter(item => item?.response !== undefined && item?.response !== null);
             
-            const sum = validResponses.reduce((acc, curr) => acc + curr.response, 0);
-            const average = validResponses.length > 0 ? (sum / validResponses.length).toFixed(2) : null;
-            
-            formattedData.categoryAverages[category] = average;
+            if (validResponses.length > 0) {
+                const sum = validResponses.reduce((acc, curr) => acc + curr.response, 0);
+                formattedData.categoryAverages[category] = (sum / validResponses.length).toFixed(2);
+            } else {
+                formattedData.categoryAverages[category] = "0.00";
+            }
         });
     } else {
         // Handle form submission format (flat responses)
@@ -215,7 +217,7 @@ const CareerAssessmentCollector = () => {
     }
 
     return formattedData;
-};
+  };
 
   const loadTestData = async (e) => {
     e.preventDefault();
@@ -265,7 +267,7 @@ const CareerAssessmentCollector = () => {
 
     try {
         const data = prepareDataForAnalysis();
-        console.log('Sending data:', data); // Debug log
+        console.log('Sending data:', data);
 
         const response = await fetch('/api/analyze', {
             method: 'POST',
@@ -276,7 +278,7 @@ const CareerAssessmentCollector = () => {
         });
 
         const responseData = await response.json();
-        console.log('Response received:', responseData); // Debug log
+        console.log('Response received:', responseData);
 
         if (!response.ok) {
             throw new Error(responseData.error || 'Failed to analyze responses');
@@ -295,53 +297,6 @@ const CareerAssessmentCollector = () => {
         setLoading(false);
     }
   };
-
-  const renderAnalysis = () => {
-    if (!analysis) return null;
-
-    const renderContent = (section, content) => {
-        // Special handling for Primary Career Paths
-        if (section === "Primary Career Paths" && content.careers) {
-            return content.careers.map((career, i) => (
-                <p key={i}>
-                    {`${career.title} at ${career.company_type} (${career.match_score}% match) - Salary: $${career.salary_range.min.toLocaleString()}-${career.salary_range.max.toLocaleString()}, Growth: ${career.growth_potential}%`}
-                </p>
-            ));
-        }
-
-        // Handle regular array content
-        if (Array.isArray(content)) {
-            return content.map((item, i) => (
-                <p key={i}>{item}</p>
-            ));
-        }
-
-        // Handle string content
-        if (typeof content === 'string') {
-            return <p>{content}</p>;
-        }
-
-        return null;
-    };
-
-    return (
-        <Card className="mt-8">
-            <CardHeader>
-                <CardTitle>Career Analysis Results</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-                {Object.entries(analysis).map(([section, content]) => (
-                    <div key={section} className="space-y-2">
-                        <h3 className="font-semibold text-lg">{section}</h3>
-                        <div className="pl-4 space-y-2">
-                            {renderContent(section, content)}
-                        </div>
-                    </div>
-                ))}
-            </CardContent>
-        </Card>
-    );
-};
 
   const renderDebugInfo = () => {
     if (!debugInfo) return null;
@@ -384,26 +339,26 @@ const CareerAssessmentCollector = () => {
                                 <h3 className="text-lg font-bold">{category.title}</h3>
                                 <div className="space-y-4">
                                     {Object.entries(category.questions).map(([number, question]) => (
-                                        <div key={number} className="flex flex-col space-y-2">
-                                            <div className="flex items-start space-x-2">
-                                                <span className="w-8 text-sm font-medium">Q{number}:</span>
-                                                <span className="flex-grow">{question}</span>
-                                            </div>
-                                            <div className="flex items-center space-x-2 ml-8">
-                                                <select 
-                                                    className="border rounded p-2 w-64"
-                                                    onChange={(e) => handleResponse(number, e.target.value)}
-                                                    value={responses[number] || ''}
-                                                >
-                                                    <option value="">Select...</option>
-                                                    <option value="1">1 - Strongly Disagree</option>
-                                                    <option value="2">2 - Disagree</option>
-                                                    <option value="3">3 - Neutral</option>
-                                                    <option value="4">4 - Agree</option>
-                                                    <option value="5">5 - Strongly Agree</option>
-                                                </select>
-                                            </div>
+                                        <div key={number} className="space-y-2">
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-sm font-medium whitespace-nowrap">Question {number}:</span>
+                                            <span>{question}</span>
                                         </div>
+                                        <div className="ml-4">
+                                            <select 
+                                                className="border rounded p-2 w-64 mb-5"
+                                                onChange={(e) => handleResponse(number, e.target.value)}
+                                                value={responses[number] || ''}
+                                            >
+                                                <option value="">Select...</option>
+                                                <option value="1">1 - Strongly Disagree</option>
+                                                <option value="2">2 - Disagree</option>
+                                                <option value="3">3 - Neutral</option>
+                                                <option value="4">4 - Agree</option>
+                                                <option value="5">5 - Strongly Agree</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     ))}
                                 </div>
                             </div>
@@ -442,10 +397,8 @@ const CareerAssessmentCollector = () => {
                 categoryAverages={prepareDataForAnalysis().categoryAverages} 
             />
         )}
-        
-        {renderAnalysis()}
     </div>
   );
 };
 
-export default CareerAssessmentCollector;
+export default CareerAssessmentCollector

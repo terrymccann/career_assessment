@@ -89,7 +89,7 @@ const AnalysisVisualization = ({ analysisData, categoryAverages }) => {
                         <ResponsiveContainer>
                             <BarChart data={formattedCareerData}>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="career" angle={-45} textAnchor="end" height={100} />
+                                <XAxis dataKey="career" angle={-45} textAnchor="end" height={125} />
                                 <YAxis domain={[0, 100]} />
                                 <Tooltip 
                                     content={({ active, payload, label }) => {
