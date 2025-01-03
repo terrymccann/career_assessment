@@ -2,8 +2,17 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import Redis from 'ioredis';
 
-// Initialize Redis client
-const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
+// Initialize Redis client with default local settings
+const redis = new Redis({
+    host: '127.0.0.1',
+    port: 6379,
+    maxRetriesPerRequest: 1,
+    retryStrategy: (times) => {
+        if (times > 3) return null; // stop retrying
+        return Math.min(times * 50, 2000);
+    },
+    lazyConnect: true
+});
 
 // Cache configuration
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
@@ -12,6 +21,21 @@ const CACHE_PREFIX = 'embedding:';
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
+
+// Helper function to convert string to hash using Web Crypto API
+async function stringToHash(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Helper function to generate a cache key
+async function generateCacheKey(text) {
+    const hash = await stringToHash(text);
+    return `${CACHE_PREFIX}${hash}`;
+}
 
 // Helper function to calculate category averages
 const calculateCategoryAverages = (responses) => {
@@ -34,55 +58,12 @@ const identifyStrongCategories = (averages) => {
         .map(([category]) => category);
 };
 
-// Helper function to generate a cache key
-function generateCacheKey(text) {
-    // Create a stable hash of the text for use as a cache key
-    const hash = crypto.createHash('sha256').update(text).digest('hex');
-    return `${CACHE_PREFIX}${hash}`;
-}
-
-// Helper function to get embeddings with caching
-async function getEmbedding(text) {
-    const cacheKey = generateCacheKey(text);
-    
-    try {
-        // Try to get from cache first
-        const cachedEmbedding = await redis.get(cacheKey);
-        if (cachedEmbedding) {
-            console.log('Cache hit for:', text);
-            return JSON.parse(cachedEmbedding);
-        }
-
-        // If not in cache, get from OpenAI
-        console.log('Cache miss for:', text);
-        const response = await openai.embeddings.create({
-            model: "text-embedding-ada-002",
-            input: text
-        });
-        
-        const embedding = response.data[0].embedding;
-        
-        // Store in cache
-        await redis.setex(
-            cacheKey,
-            CACHE_TTL,
-            JSON.stringify(embedding)
-        );
-        
-        return embedding;
-    } catch (error) {
-        console.error('Error in getEmbedding:', error);
-        // If Redis is down, fall back to direct API call
-        if (error.name === 'ReplyError' || error.name === 'ConnectionError') {
-            console.log('Cache error, falling back to API');
-            const response = await openai.embeddings.create({
-                model: "text-embedding-ada-002",
-                input: text
-            });
-            return response.data[0].embedding;
-        }
-        throw error;
-    }
+// Calculate cosine similarity between two vectors
+function cosineSimilarity(vecA, vecB) {
+    const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
+    const magnitudeA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
+    const magnitudeB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
+    return dotProduct / (magnitudeA * magnitudeB);
 }
 
 // Batch process embeddings to reduce API calls
@@ -96,12 +77,16 @@ async function batchGetEmbeddings(texts) {
     
     await Promise.all(
         uniqueTexts.map(async (text) => {
-            const cacheKey = generateCacheKey(text);
-            const cached = await redis.get(cacheKey);
-            
-            if (cached) {
-                results.set(text, JSON.parse(cached));
-            } else {
+            const cacheKey = await generateCacheKey(text);
+            try {
+                const cached = await redis.get(cacheKey);
+                if (cached) {
+                    results.set(text, JSON.parse(cached));
+                } else {
+                    missedTexts.push(text);
+                }
+            } catch (error) {
+                console.warn('Cache get error:', error);
                 missedTexts.push(text);
             }
         })
@@ -112,36 +97,32 @@ async function batchGetEmbeddings(texts) {
         for (let i = 0; i < missedTexts.length; i += 100) {
             const batch = missedTexts.slice(i, i + 100);
             const response = await openai.embeddings.create({
-                model: "text-embedding-ada-002",
+                model: "text-embedding-3-small",
                 input: batch
             });
             
             // Store results and cache them
-            batch.forEach((text, index) => {
+            batch.forEach(async (text, index) => {
                 const embedding = response.data[index].embedding;
                 results.set(text, embedding);
                 
                 // Cache the new embedding
-                const cacheKey = generateCacheKey(text);
-                redis.setex(
-                    cacheKey,
-                    CACHE_TTL,
-                    JSON.stringify(embedding)
-                ).catch(console.error);
+                const cacheKey = await generateCacheKey(text);
+                try {
+                    await redis.setex(
+                        cacheKey,
+                        CACHE_TTL,
+                        JSON.stringify(embedding)
+                    );
+                } catch (error) {
+                    console.warn('Cache set error:', error);
+                }
             });
         }
     }
     
     // Return embeddings in the same order as input texts
     return texts.map(text => results.get(text));
-}
-
-// Calculate cosine similarity between two vectors
-function cosineSimilarity(vecA, vecB) {
-    const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
-    const magnitudeA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
-    const magnitudeB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
-    return dotProduct / (magnitudeA * magnitudeB);
 }
 
 // Check for similar questions/options using cosine similarity
