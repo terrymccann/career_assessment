@@ -277,7 +277,7 @@ Requirements for follow-up questions:
                             content: initialPrompt
                         }
                     ],
-                    model: "gpt-4",
+                    model: "gpt-4o-mini",
                     response_format: { type: "json_object" },
                     temperature: 0.7,
                     max_tokens: 2000
@@ -314,7 +314,7 @@ Requirements for follow-up questions:
                                 content: differentiationPrompt
                             }
                         ],
-                        model: "gpt-4",
+                        model: "gpt-4o-mini",
                         response_format: { type: "json_object" },
                         temperature: 0.7,
                         max_tokens: 2000
@@ -395,7 +395,7 @@ Provide a final analysis in this exact JSON format:
                             content: finalPrompt
                         }
                     ],
-                    model: "gpt-4",
+                    model: "gpt-4o-mini",
                     response_format: { type: "json_object" },
                     temperature: 0.7,
                     max_tokens: 2000
